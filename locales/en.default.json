@@ -1,0 +1,118 @@
+{
+  "general": {
+    "share": "Share",
+    "search": "Search equipment, PCs, monitors...",
+    "close": "Close",
+    "back": "Back",
+    "continue_shopping": "Continue shopping",
+    "view_all": "View all",
+    "loading": "Loading...",
+    "newsletter_title": "Stay in the game",
+    "newsletter_subtext": "Get updates about new gaming gear, launches and exclusive offers.",
+    "newsletter_placeholder": "Enter your email address",
+    "newsletter_button": "Subscribe",
+    "newsletter_success": "Thank you for subscribing to Kinetic Gaming updates."
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "star_rating": "{{ rating }} out of 5 stars",
+    "cart_count": {
+      "one": "{{ count }} item in cart",
+      "other": "{{ count }} items in cart"
+    }
+  },
+  "sections": {
+    "header": {
+      "menu": "Menu",
+      "cart": "Cart",
+      "account": "Account",
+      "search": "Search"
+    },
+    "footer": {
+      "all_rights_reserved": "All rights reserved.",
+      "payment_methods": "Accepted payment methods"
+    },
+    "cart": {
+      "title": "Your Cart",
+      "empty": "Your cart is currently empty",
+      "subtotal": "Subtotal",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping</a> calculated at checkout",
+      "checkout": "Proceed to Checkout",
+      "view_cart": "View cart",
+      "remove": "Remove",
+      "note": "Special instructions for seller",
+      "free_shipping_eligible": "You qualify for free expedited delivery!",
+      "free_shipping_progress": "Add {{ amount }} more to unlock free shipping"
+    },
+    "featured_products": {
+      "view_all": "View all gaming gear"
+    },
+    "collection_template": {
+      "filter_by_label": "Filter by:",
+      "sort_by_label": "Sort by:",
+      "empty": "No gaming hardware found matching your criteria.",
+      "product_count": {
+        "one": "Showing {{ count }} product",
+        "other": "Showing {{ count }} products"
+      },
+      "clear_all": "Clear all filters"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "buy_now": "Buy with Shop Pay",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "quick_add": "Quick Add",
+      "quantity": {
+        "label": "Quantity",
+        "input_label": "Quantity for {{ product }}",
+        "increase": "Increase quantity for {{ product }}",
+        "decrease": "Decrease quantity for {{ product }}"
+      },
+      "price": {
+        "regular_price": "Regular price",
+        "sale_price": "Sale price",
+        "from_price_html": "From {{ price }}",
+        "unit_price_separator": " / "
+      },
+      "specifications": "Technical Specifications",
+      "shipping_guarantee": "Dispatched within 24h · 2-Year Full Hardware Warranty"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My Account",
+      "details": "Account Details",
+      "view_addresses": "View Addresses ({{ count }})",
+      "return": "Return to Account details"
+    },
+    "orders": {
+      "title": "Order History",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment",
+      "fulfillment_status": "Fulfillment",
+      "total": "Total",
+      "none": "You haven't placed any orders yet."
+    },
+    "login_page": {
+      "title": "Account Login",
+      "email": "Email Address",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "sign_in": "Sign In",
+      "create_account": "Create account"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email Address",
+      "password": "Password",
+      "submit": "Create Account"
+    }
+  }
+}

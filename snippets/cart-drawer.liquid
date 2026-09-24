@@ -1,0 +1,112 @@
+{% comment %}
+  Slide-out AJAX Cart Drawer
+{% endcomment %}
+
+<div id="CartDrawerOverlay" class="cart-drawer-overlay"></div>
+
+<aside id="CartDrawer" class="cart-drawer" aria-labelledby="CartDrawerTitle" role="dialog" aria-modal="true">
+  <!-- Drawer Header -->
+  <div class="p-5 border-b border-neutral-200 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <h2 id="CartDrawerTitle" class="text-base font-bold uppercase tracking-tight text-neutral-900">
+        {{ 'sections.cart.title' | t }}
+      </h2>
+      <span class="text-xs font-semibold px-2 py-0.5 bg-neutral-100 text-neutral-800 tabular-nums" data-cart-count>
+        {{ cart.item_count }}
+      </span>
+    </div>
+
+    <button type="button" class="p-2 text-neutral-500 hover:text-neutral-900 transition-colors" data-cart-drawer-close aria-label="{{ 'general.close' | t }}">
+      {% render 'icon', name: 'close', class: 'w-5 h-5' %}
+    </button>
+  </div>
+
+  <!-- Free Shipping Calculator -->
+  {%- if settings.show_free_shipping_bar -%}
+    <div class="px-5 py-3 bg-neutral-50 border-b border-neutral-200 text-xs">
+      <p id="CartDrawerShippingMsg" class="text-neutral-700 mb-1.5 font-medium">
+        Add more gear to unlock <strong>Free Expedited Shipping</strong>
+      </p>
+      <div class="w-full h-1.5 bg-neutral-200 overflow-hidden rounded-full">
+        <div id="CartDrawerShippingBar" class="h-full bg-neutral-900 transition-all duration-300" style="width: 45%;"></div>
+      </div>
+    </div>
+  {%- endif -%}
+
+  <!-- Items Container -->
+  <div id="CartDrawerItems" class="flex-1 overflow-y-auto p-5 space-y-4">
+    {%- if cart.item_count > 0 -%}
+      {%- for item in cart.items -%}
+        <div class="flex gap-4 py-3 border-b border-neutral-100">
+          <div class="w-20 h-20 bg-neutral-100 shrink-0 border border-neutral-200 overflow-hidden">
+            {%- if item.image -%}
+              <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}" class="w-full h-full object-cover">
+            {%- endif -%}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-start">
+              <h4 class="text-sm font-semibold text-neutral-900 truncate pr-2">
+                <a href="{{ item.url }}" class="hover:underline">{{ item.product.title }}</a>
+              </h4>
+              <button type="button" class="text-neutral-400 hover:text-neutral-900 text-xs p-1" data-cart-remove data-line="{{ forloop.index }}" aria-label="Remove">
+                &times;
+              </button>
+            </div>
+
+            {%- unless item.product.has_only_default_variant -%}
+              <p class="text-xs text-neutral-500 mt-0.5">{{ item.variant.title }}</p>
+            {%- endunless -%}
+
+            <div class="flex items-center justify-between mt-3">
+              <div class="qty-stepper">
+                <button type="button" data-cart-quantity-change data-line="{{ forloop.index }}" data-delta="-1" data-current-qty="{{ item.quantity }}">&minus;</button>
+                <input type="text" value="{{ item.quantity }}" readonly>
+                <button type="button" data-cart-quantity-change data-line="{{ forloop.index }}" data-delta="1" data-current-qty="{{ item.quantity }}">&plus;</button>
+              </div>
+              <span class="text-sm font-bold tabular-nums">{{ item.final_line_price | money }}</span>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="py-16 text-center">
+        <p class="text-neutral-500 text-sm mb-4">{{ 'sections.cart.empty' | t }}</p>
+        <button type="button" class="btn-primary" data-cart-drawer-close>
+          {{ 'general.continue_shopping' | t }}
+        </button>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <!-- Drawer Footer -->
+  <div class="p-5 border-t border-neutral-200 bg-white space-y-4">
+    {%- if settings.show_cart_notes -%}
+      <details class="text-xs text-neutral-600">
+        <summary class="cursor-pointer font-medium hover:text-neutral-900">+ Add Order Note / Delivery Instructions</summary>
+        <textarea name="note" rows="2" class="w-full mt-2 p-2 border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900" placeholder="Special instructions...">{{ cart.note }}</textarea>
+      </details>
+    {%- endif -%}
+
+    <div class="flex justify-between items-baseline pt-2">
+      <span class="text-sm font-semibold uppercase tracking-wider text-neutral-600">{{ 'sections.cart.subtotal' | t }}</span>
+      <span id="CartDrawerSubtotal" class="text-lg font-bold text-neutral-900 tabular-nums">
+        {{ cart.total_price | money }}
+      </span>
+    </div>
+
+    <p class="text-[11px] text-neutral-500 leading-tight">
+      {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: routes.cart_url }}
+    </p>
+
+    <div class="grid grid-cols-1 gap-2 pt-1">
+      <form action="{{ routes.cart_url }}" method="post">
+        <button type="submit" name="checkout" class="w-full py-3.5 bg-neutral-900 text-white font-semibold text-xs tracking-wider uppercase hover:bg-neutral-800 transition-colors">
+          {{ 'sections.cart.checkout' | t }}
+        </button>
+      </form>
+      <a href="{{ routes.cart_url }}" class="block text-center text-xs text-neutral-600 hover:text-neutral-900 underline py-1">
+        {{ 'sections.cart.view_cart' | t }}
+      </a>
+    </div>
+  </div>
+</aside>

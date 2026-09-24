@@ -1,0 +1,32 @@
+{% comment %}
+  Renders responsive image tag with proper widths, srcset, and lazy loading
+  Accepts:
+  - image: {Object} Shopify image object
+  - alt: {String} Alternative text
+  - class: {String} Extra classes
+  - priority: {Boolean} If true, sets eager loading
+  - sizes: {String} sizes attribute
+{% endcomment %}
+
+{%- if image != blank -%}
+  <img
+    src="{{ image | image_url: width: 800 }}"
+    srcset="
+      {{ image | image_url: width: 375 }} 375w,
+      {{ image | image_url: width: 550 }} 550w,
+      {{ image | image_url: width: 750 }} 750w,
+      {{ image | image_url: width: 1100 }} 1100w,
+      {{ image | image_url: width: 1500 }} 1500w,
+      {{ image | image_url: width: 2000 }} 2000w
+    "
+    sizes="{{ sizes | default: '(min-width: 1200px) 1200px, 100vw' }}"
+    alt="{{ alt | default: image.alt | escape }}"
+    class="{{ class }}"
+    loading="{% if priority %}eager{% else %}lazy{% endif %}"
+    decoding="async"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+  >
+{%- else -%}
+  {{ 'image' | placeholder_svg_tag: 'w-full h-full bg-neutral-100 text-neutral-300' }}
+{%- endif -%}

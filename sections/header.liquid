@@ -1,0 +1,159 @@
+{% comment %}
+  KINETIC Minimalist Gaming Header Section
+  Complies with 1-row, 3-zone contract: Brand mark — dynamic nav links — actions
+{% endcomment %}
+
+<header class="header-sticky border-b border-neutral-200 bg-white" data-section-id="{{ section.id }}">
+  {%- if section.settings.show_announcement -%}
+    <div class="bg-neutral-900 text-white text-[11px] font-medium tracking-wider text-center py-2 px-4 uppercase">
+      {{ section.settings.announcement_text | default: 'Free Express Shipping on Orders Over $150 · 2-Year Full Hardware Warranty' }}
+    </div>
+  {%- endif -%}
+
+  <div class="page-container flex items-center justify-between h-18">
+    <!-- Zone 1: Brand Wordmark / Logo -->
+    <div class="flex items-center gap-4">
+      <button type="button" class="lg:hidden p-2 text-neutral-700 hover:text-neutral-900" data-mobile-menu-trigger aria-label="{{ 'sections.header.menu' | t }}">
+        {% render 'icon', name: 'menu', class: 'w-6 h-6' %}
+      </button>
+
+      <a href="{{ routes.root_url }}" class="header-brand flex items-center gap-2">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: 300 }}"
+            alt="{{ shop.name | escape }}"
+            width="{{ section.settings.logo_width | default: 120 }}"
+            height="32"
+            class="object-contain"
+          >
+        {%- else -%}
+          <span class="text-xl font-extrabold tracking-tighter uppercase text-neutral-900">
+            {{ shop.name | default: 'KINETIC' }}
+          </span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- Zone 2: Desktop Navigation Menu -->
+    <nav class="hidden lg:flex items-center gap-8" aria-label="Main Navigation">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}" class="nav-link text-sm font-medium {% if link.active %}text-neutral-900 font-semibold{% endif %}">
+          {{ link.title }}
+        </a>
+      {%- else -%}
+        <!-- Default fallback navigation -->
+        <a href="/" class="nav-link active">Home</a>
+        <a href="/collections/gaming-pcs" class="nav-link">Gaming PCs</a>
+        <a href="/collections/monitors" class="nav-link">Monitors</a>
+        <a href="/collections/keyboards" class="nav-link">Keyboards</a>
+        <a href="/collections/mice" class="nav-link">Mice</a>
+        <a href="/collections/headsets" class="nav-link">Headsets</a>
+        <a href="/collections/accessories" class="nav-link">Accessories</a>
+      {%- endfor -%}
+    </nav>
+
+    <!-- Zone 3: Header Actions (Search, Account, Cart) -->
+    <div class="flex items-center gap-3">
+      <!-- Search Trigger / Quick Search -->
+      <a href="{{ routes.search_url }}" class="p-2 text-neutral-700 hover:text-neutral-900 transition-colors" aria-label="{{ 'sections.header.search' | t }}">
+        {% render 'icon', name: 'search', class: 'w-5 h-5' %}
+      </a>
+
+      <!-- Customer Account -->
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" class="hidden sm:inline-flex p-2 text-neutral-700 hover:text-neutral-900 transition-colors" aria-label="{{ 'sections.header.account' | t }}">
+          {% render 'icon', name: 'user', class: 'w-5 h-5' %}
+        </a>
+      {%- endif -%}
+
+      <!-- Cart Drawer Trigger -->
+      <button type="button" class="p-2 text-neutral-900 hover:text-neutral-600 transition-colors relative" data-cart-drawer-trigger aria-label="{{ 'sections.header.cart' | t }}">
+        {% render 'icon', name: 'cart', class: 'w-5 h-5' %}
+        <span class="absolute top-1 right-1 w-4 h-4 bg-neutral-900 text-white text-[10px] font-bold rounded-full flex items-center justify-center tabular-nums" data-cart-count {% if cart.item_count == 0 %}style="display:none;"{% endif %}>
+          {{ cart.item_count }}
+        </span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Navigation Drawer -->
+<div id="MobileNavDrawer" class="fixed inset-0 z-50 bg-white transform -translate-x-full transition-transform duration-300 lg:hidden flex flex-col">
+  <div class="p-5 border-b border-neutral-200 flex items-center justify-between">
+    <span class="text-base font-bold uppercase tracking-tight">{{ shop.name | default: 'KINETIC' }}</span>
+    <button type="button" class="p-2 text-neutral-500 hover:text-neutral-900" data-mobile-menu-close>
+      {% render 'icon', name: 'close', class: 'w-5 h-5' %}
+    </button>
+  </div>
+  <div class="p-6 flex-1 overflow-y-auto space-y-4">
+    {%- for link in linklists[section.settings.menu].links -%}
+      <a href="{{ link.url }}" class="block text-lg font-bold text-neutral-900 uppercase tracking-tight py-2 border-b border-neutral-100">
+        {{ link.title }}
+      </a>
+    {%- else -%}
+      <a href="/" class="block text-lg font-bold text-neutral-900 uppercase tracking-tight py-2 border-b border-neutral-100">Home</a>
+      <a href="/collections/gaming-pcs" class="block text-lg font-bold text-neutral-900 uppercase tracking-tight py-2 border-b border-neutral-100">Gaming PCs</a>
+      <a href="/collections/monitors" class="block text-lg font-bold text-neutral-900 uppercase tracking-tight py-2 border-b border-neutral-100">Monitors</a>
+      <a href="/collections/keyboards" class="block text-lg font-bold text-neutral-900 uppercase tracking-tight py-2 border-b border-neutral-100">Keyboards</a>
+      <a href="/collections/mice" class="block text-lg font-bold text-neutral-900 uppercase tracking-tight py-2 border-b border-neutral-100">Mice</a>
+      <a href="/collections/accessories" class="block text-lg font-bold text-neutral-900 uppercase tracking-tight py-2 border-b border-neutral-100">Accessories</a>
+    {%- endfor -%}
+  </div>
+  <div class="p-6 bg-neutral-50 border-t border-neutral-200 space-y-3">
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{{ routes.account_login_url }}" class="btn-secondary w-full text-center">My Account</a>
+    {%- endif -%}
+    <p class="text-xs text-neutral-500 text-center">Engineered for esports performance</p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Store Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 80,
+      "max": 240,
+      "step": 10,
+      "unit": "px",
+      "label": "Custom logo width",
+      "default": 130
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "label": "Enable Sticky Header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Announcement Bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Free Express Shipping on Orders Over $150 · 2-Year Full Hardware Warranty"
+    }
+  ]
+}
+{% endschema %}

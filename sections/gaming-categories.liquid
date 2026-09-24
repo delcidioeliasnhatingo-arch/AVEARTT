@@ -1,0 +1,154 @@
+{% comment %}
+  KINETIC Minimalist Gaming Categories Grid
+  Clean visual collection cards with minimal borders and image hover lifts
+{% endcomment %}
+
+<section class="py-16 lg:py-24 bg-neutral-50 border-b border-neutral-200" data-section-id="{{ section.id }}">
+  <div class="page-container">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+      <div>
+        <p class="eyebrow-text mb-1">CATEGORIES</p>
+        <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-tight text-neutral-900">
+          {{ section.settings.heading | default: 'SHOP BY CATEGORY' }}
+        </h2>
+      </div>
+
+      {%- if section.settings.show_view_all -%}
+        <a href="/collections" class="text-xs font-semibold uppercase tracking-wider text-neutral-900 hover:underline flex items-center gap-1">
+          <span>All Categories</span>
+          {% render 'icon', name: 'chevron-right', class: 'w-3.5 h-3.5' %}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+      {%- for block in section.blocks -%}
+        {%- assign coll = block.settings.collection -%}
+        <div class="group relative bg-white border border-neutral-200 overflow-hidden transition-all duration-300 hover:border-neutral-400 hover:-translate-y-1 shadow-xs" {{ block.shopify_attributes }}>
+          <a href="{{ coll.url | default: '#' }}" class="block p-5">
+            <div class="aspect-square bg-neutral-100 mb-4 overflow-hidden relative">
+              {%- if block.settings.custom_image != blank -%}
+                <img
+                  src="{{ block.settings.custom_image | image_url: width: 600 }}"
+                  alt="{{ block.settings.title | default: coll.title | escape }}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+              {%- elsif coll.featured_image != blank -%}
+                <img
+                  src="{{ coll.featured_image | image_url: width: 600 }}"
+                  alt="{{ coll.title | escape }}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                  width="600"
+                  height="600"
+                >
+              {%- else -%}
+                <div class="w-full h-full flex items-center justify-center bg-neutral-100 text-neutral-400 text-xs font-medium uppercase tracking-wider">
+                  Hardware
+                </div>
+              {%- endif -%}
+            </div>
+
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-bold uppercase tracking-tight text-neutral-900 group-hover:text-neutral-600 transition-colors">
+                  {{ block.settings.title | default: coll.title | default: 'Category' }}
+                </h3>
+                <p class="text-xs text-neutral-500 mt-0.5">
+                  {%- if coll.products_count -%}
+                    {{ coll.products_count }} Products
+                  {%- else -%}
+                    Explore Gear
+                  {%- endif -%}
+                </p>
+              </div>
+              <span class="text-neutral-400 group-hover:text-neutral-900 group-hover:translate-x-1 transition-all">
+                {% render 'icon', name: 'chevron-right', class: 'w-4 h-4' %}
+              </span>
+            </div>
+          </a>
+        </div>
+      {%- else -%}
+        <!-- Fallback sample category cards for preview -->
+        {%- assign sample_cats = 'Gaming PCs,Monitors,Keyboards,Mice,Audio Headsets,Desk Accessories' | split: ',' -%}
+        {%- for cat in sample_cats -%}
+          <div class="group relative bg-white border border-neutral-200 overflow-hidden hover:border-neutral-400 hover:-translate-y-1 transition-all p-5 shadow-xs">
+            <a href="/collections/all" class="block">
+              <div class="aspect-square bg-neutral-100 mb-4 flex items-center justify-center text-xs font-bold text-neutral-400 uppercase tracking-widest">
+                {{ cat }}
+              </div>
+              <div class="flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-bold uppercase tracking-tight text-neutral-900">{{ cat }}</h3>
+                  <p class="text-xs text-neutral-500 mt-0.5">High Performance</p>
+                </div>
+                <span class="text-neutral-400 group-hover:text-neutral-900 transition-all">
+                  {% render 'icon', name: 'chevron-right', class: 'w-4 h-4' %}
+                </span>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Gaming Categories",
+  "tag": "section",
+  "class": "section-gaming-categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SHOP BY CATEGORY"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View All Link",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_card",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select Collection"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Category Title (Optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gaming Categories",
+      "blocks": [
+        { "type": "category_card" },
+        { "type": "category_card" },
+        { "type": "category_card" },
+        { "type": "category_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}

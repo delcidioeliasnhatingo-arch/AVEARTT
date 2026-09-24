@@ -1,0 +1,233 @@
+{% comment %}
+  KINETIC Minimalist Gaming Main Product Section
+  Two-column contiguous purchase module with sticky media gallery and real Shopify variant options
+{% endcomment %}
+
+<section class="py-8 lg:py-16 bg-white border-b border-neutral-200" data-section-id="{{ section.id }}" data-product-module>
+  <div class="page-container">
+    {% render 'breadcrumbs' %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 mt-4">
+      <!-- Media Gallery (Sticky Left) -->
+      <div class="lg:col-span-7">
+        <div class="sticky top-24 space-y-4">
+          <!-- Main Selected Media -->
+          <div class="relative aspect-square bg-[#FAFAFA] border border-neutral-200 overflow-hidden">
+            {%- assign current_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+            {%- if current_image != blank -%}
+              <img
+                id="ProductMainImage"
+                src="{{ current_image | image_url: width: 1200 }}"
+                alt="{{ product.title | escape }}"
+                class="w-full h-full object-cover transition-opacity duration-300"
+                width="1200"
+                height="1200"
+                loading="eager"
+              >
+            {%- else -%}
+              <div class="w-full h-full flex items-center justify-center text-neutral-400 uppercase text-xs">
+                Product Image
+              </div>
+            {%- endif -%}
+          </div>
+
+          <!-- Thumbnail Gallery Navigation -->
+          {%- if product.media.size > 1 -%}
+            <div class="grid grid-cols-5 gap-3">
+              {%- for media in product.media -%}
+                <button
+                  type="button"
+                  class="aspect-square border border-neutral-200 hover:border-neutral-900 overflow-hidden focus:outline-none focus:border-neutral-900 transition-colors"
+                  onclick="document.getElementById('ProductMainImage').src = '{{ media | image_url: width: 1200 }}'"
+                >
+                  <img src="{{ media | image_url: width: 240 }}" alt="{{ media.alt | escape }}" class="w-full h-full object-cover">
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Purchase Module (Right Column) -->
+      <div class="lg:col-span-5 flex flex-col justify-start">
+        {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+        <!-- Vendor & Title -->
+        {%- if product.vendor != blank -%}
+          <p class="text-xs font-semibold uppercase tracking-widest text-neutral-400 mb-1">
+            {{ product.vendor }}
+          </p>
+        {%- endif -%}
+
+        <h1 class="text-2xl sm:text-3xl font-extrabold uppercase tracking-tight text-neutral-900 mb-3 leading-snug">
+          {{ product.title }}
+        </h1>
+
+        <!-- Rating & Metafield Specs -->
+        <div class="flex items-center gap-3 mb-4">
+          {% render 'rating', rating: 4.9, count: 142 %}
+          <span class="text-neutral-300" aria-hidden="true">·</span>
+          <span class="text-xs text-neutral-500 font-medium">SKU: {{ current_variant.sku | default: 'KT-900-PRO' }}</span>
+        </div>
+
+        <!-- Price Container -->
+        <div class="py-4 border-y border-neutral-100 mb-6 flex items-baseline gap-3">
+          <span data-product-price class="text-2xl font-bold text-neutral-900 tabular-nums">
+            {{ current_variant.price | money }}
+          </span>
+          <span
+            data-product-compare-price
+            class="text-base text-neutral-400 line-through tabular-nums {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}"
+          >
+            {{ current_variant.compare_at_price | money }}
+          </span>
+          {%- if current_variant.available -%}
+            <span class="ml-auto text-xs font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5">Ready to Ship</span>
+          {%- else -%}
+            <span class="ml-auto text-xs font-semibold text-neutral-500 bg-neutral-100 px-2 py-0.5 uppercase">Sold Out</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Product Form with Variant Selector and Dynamic Checkout -->
+        {%- form 'product', product, id: 'product-form-installment', class: 'space-y-6', data-ajax-cart: 'true' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+          <!-- Variant Options -->
+          {%- unless product.has_only_default_variant -%}
+            <div class="space-y-4">
+              {%- for option in product.options_with_values -%}
+                <div>
+                  <div class="flex justify-between items-baseline mb-2">
+                    <label class="text-xs font-bold uppercase tracking-wider text-neutral-900">
+                      {{ option.name }}
+                    </label>
+                    <span class="text-xs text-neutral-500">{{ option.selected_value }}</span>
+                  </div>
+
+                  <div class="flex flex-wrap gap-2">
+                    {%- for value in option.values -%}
+                      <label class="cursor-pointer">
+                        <input
+                          type="radio"
+                          name="{{ option.name }}"
+                          value="{{ value }}"
+                          class="sr-only peer"
+                          data-variant-option
+                          {% if option.selected_value == value %}checked{% endif %}
+                        >
+                        <span class="inline-flex items-center justify-center px-4 py-2 border border-neutral-200 text-xs font-semibold uppercase text-neutral-800 peer-checked:border-neutral-900 peer-checked:bg-neutral-900 peer-checked:text-white transition-colors">
+                          {{ value }}
+                        </span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          {%- endunless -%}
+
+          <!-- Quantity Selector -->
+          <div class="space-y-2">
+            <label for="ProductQuantity" class="text-xs font-bold uppercase tracking-wider text-neutral-900 block">
+              {{ 'products.product.quantity.label' | t }}
+            </label>
+            {% render 'quantity-selector', id: 'ProductQuantity', value: 1, min: 1 %}
+          </div>
+
+          <!-- Add to Cart & Buy Now Buttons -->
+          <div class="space-y-3 pt-2">
+            <button
+              type="submit"
+              name="add"
+              class="w-full py-4 bg-neutral-900 text-white font-bold text-xs uppercase tracking-widest hover:bg-neutral-800 transition-colors shadow-sm disabled:opacity-50"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {%- if current_variant.available -%}
+                {{ 'products.product.add_to_cart' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </button>
+
+            {%- if section.settings.show_dynamic_checkout -%}
+              {{ form | payment_button }}
+            {%- endif -%}
+          </div>
+        {%- endform -%}
+
+        <!-- Trust Guarantee Callouts -->
+        <div class="mt-8 p-4 bg-neutral-50 border border-neutral-200 space-y-2 text-xs text-neutral-600">
+          <div class="flex items-center gap-2 text-neutral-900 font-semibold">
+            {% render 'icon', name: 'check', class: 'w-4 h-4' %}
+            <span>2-Year Full Hardware Replacement Warranty</span>
+          </div>
+          <div class="flex items-center gap-2">
+            {% render 'icon', name: 'check', class: 'w-4 h-4' %}
+            <span>Ships in 24 hours via carbon-neutral express courier</span>
+          </div>
+          <div class="flex items-center gap-2">
+            {% render 'icon', name: 'check', class: 'w-4 h-4' %}
+            <span>30-Day No-Questions Performance Evaluation</span>
+          </div>
+        </div>
+
+        <!-- Description & Accordions -->
+        <div class="mt-8 pt-8 border-t border-neutral-200 space-y-6">
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-neutral-900 mb-2">Description</h3>
+            <div class="prose text-xs text-neutral-600 leading-relaxed space-y-2">
+              {{ product.description }}
+            </div>
+          </div>
+
+          <details class="border-t border-neutral-200 pt-4 group">
+            <summary class="flex justify-between items-center cursor-pointer text-xs font-bold uppercase tracking-wider text-neutral-900 list-none">
+              <span>{{ 'products.product.specifications' | t }}</span>
+              <span class="group-open:rotate-180 transition-transform">&darr;</span>
+            </summary>
+            <div class="mt-3 text-xs text-neutral-600 space-y-2">
+              <div class="grid grid-cols-2 py-1.5 border-b border-neutral-100">
+                <span class="font-medium text-neutral-800">Connection</span>
+                <span>HyperSpeed 2.4GHz / Low-latency USB-C</span>
+              </div>
+              <div class="grid grid-cols-2 py-1.5 border-b border-neutral-100">
+                <span class="font-medium text-neutral-800">Chassis</span>
+                <span>Anodized Aircraft Aluminum CNC</span>
+              </div>
+              <div class="grid grid-cols-2 py-1.5 border-b border-neutral-100">
+                <span class="font-medium text-neutral-800">Battery Life</span>
+                <span>Up to 110 Hours Active Continuous Play</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.KineticCurrentProduct = {{ product | json }};
+</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "tag": "section",
+  "class": "section-main-product",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_dynamic_checkout",
+      "label": "Show Dynamic Checkout Button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_zoom",
+      "label": "Enable Image Zoom",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

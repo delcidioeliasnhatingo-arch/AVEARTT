@@ -1,0 +1,129 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-gaming",
+      "settings": {
+        "eyebrow": "GAMING PERFORMANCE",
+        "heading": "BUILT FOR YOUR NEXT LEVEL",
+        "description": "Gaming gear designed for performance, precision and an exceptional gaming experience.",
+        "primary_button_label": "SHOP GAMING GEAR",
+        "primary_button_link": "/collections/all",
+        "secondary_button_label": "EXPLORE COLLECTION",
+        "secondary_button_link": "/collections"
+      }
+    },
+    "categories": {
+      "type": "gaming-categories",
+      "settings": {
+        "heading": "SHOP BY CATEGORY",
+        "show_view_all": true
+      },
+      "blocks": {
+        "cat_1": {
+          "type": "category_card",
+          "settings": {
+            "title": "Custom Gaming PCs"
+          }
+        },
+        "cat_2": {
+          "type": "category_card",
+          "settings": {
+            "title": "High-Refresh Monitors"
+          }
+        },
+        "cat_3": {
+          "type": "category_card",
+          "settings": {
+            "title": "Mechanical Keyboards"
+          }
+        },
+        "cat_4": {
+          "type": "category_card",
+          "settings": {
+            "title": "Precision Mice"
+          }
+        }
+      },
+      "block_order": ["cat_1", "cat_2", "cat_3", "cat_4"]
+    },
+    "featured_products": {
+      "type": "featured-products",
+      "settings": {
+        "heading": "FEATURED GAMING GEAR",
+        "products_to_show": 8,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_quick_add": true
+      }
+    },
+    "setup_banner": {
+      "type": "setup-banner",
+      "settings": {
+        "eyebrow": "CURATED WORKSPACES",
+        "heading": "BUILD YOUR SETUP",
+        "description": "Everything you need to create a clean, powerful and immersive gaming setup.",
+        "button_label": "EXPLORE SETUPS",
+        "button_link": "/collections/all"
+      }
+    },
+    "performance_features": {
+      "type": "performance-features",
+      "settings": {
+        "heading": "PERFORMANCE WITHOUT COMPROMISE"
+      },
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "title": "PRECISION",
+            "description": "Equipment designed for accurate and responsive control."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "title": "PERFORMANCE",
+            "description": "Hardware built for demanding gaming experiences."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "title": "COMFORT",
+            "description": "Designed for long gaming sessions."
+          }
+        },
+        "f4": {
+          "type": "feature",
+          "settings": {
+            "title": "QUALITY",
+            "description": "Carefully selected gaming equipment."
+          }
+        }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"]
+    },
+    "best_sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "heading": "BEST SELLERS"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "STAY IN THE GAME",
+        "description": "Get updates about new gaming gear, launches and exclusive offers."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "categories",
+    "featured_products",
+    "setup_banner",
+    "performance_features",
+    "best_sellers",
+    "newsletter"
+  ]
+}

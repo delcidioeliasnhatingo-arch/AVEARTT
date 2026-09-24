@@ -1,0 +1,117 @@
+{% comment %}
+  KINETIC Minimalist Featured Products Grid
+  Supports dynamic collection selection, quick add, and responsive column control
+{% endcomment %}
+
+<section class="py-16 lg:py-24 bg-white border-b border-neutral-200" data-section-id="{{ section.id }}">
+  <div class="page-container">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+      <div>
+        <p class="eyebrow-text mb-1">PRO-GRADE GEAR</p>
+        <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-tight text-neutral-900">
+          {{ section.settings.heading | default: 'FEATURED GAMING GEAR' }}
+        </h2>
+      </div>
+
+      {%- if section.settings.collection != blank -%}
+        <a href="{{ section.settings.collection.url }}" class="text-xs font-semibold uppercase tracking-wider text-neutral-900 hover:underline flex items-center gap-1">
+          <span>{{ 'sections.featured_products.view_all' | t }}</span>
+          {% render 'icon', name: 'chevron-right', class: 'w-3.5 h-3.5' %}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- assign collection = section.settings.collection -%}
+    {%- assign limit = section.settings.products_to_show | default: 8 -%}
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+      {%- if collection != blank and collection.products_count > 0 -%}
+        {%- for product in collection.products limit: limit -%}
+          {% render 'product-card',
+            product: product,
+            show_vendor: section.settings.show_vendor,
+            show_rating: section.settings.show_rating,
+            show_quick_add: section.settings.show_quick_add
+          %}
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Editorial Preview Mock Cards when collection is unassigned in Theme Editor -->
+        {%- for i in (1..4) -%}
+          <div class="product-card">
+            <div class="product-card-media relative">
+              <div class="w-full h-full flex items-center justify-center bg-neutral-100 text-neutral-400 text-xs font-medium uppercase tracking-widest">
+                Preview Product {{ i }}
+              </div>
+            </div>
+            <div class="p-4 flex flex-col justify-between flex-1">
+              <div>
+                <p class="text-[11px] font-semibold text-neutral-400 uppercase">KINETIC LABS</p>
+                <h3 class="text-sm font-semibold text-neutral-900 mt-1">Apex Pro Precision Hardware 0{{ i }}</h3>
+                <div class="mt-1.5">
+                  {% render 'rating', rating: 4.9, count: 64 %}
+                </div>
+              </div>
+              <div class="mt-4 pt-3 border-t border-neutral-100 flex items-center justify-between">
+                <span class="text-sm font-bold text-neutral-900">$189.00</span>
+                <span class="text-[11px] text-neutral-500">In Stock</span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "tag": "section",
+  "class": "section-featured-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "FEATURED GAMING GEAR"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Source Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "label": "Products to show",
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show Vendor",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Rating",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_add",
+      "label": "Show Quick Add",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}

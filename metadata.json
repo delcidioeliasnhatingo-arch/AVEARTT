@@ -1,0 +1,8 @@
+{
+  "name": "KINETIC - Minimalist Gaming Shopify OS 2.0 Theme",
+  "description": "Production-ready Shopify Online Store 2.0 theme for modern, minimalist gaming ecommerce with dynamic sections, Liquid architecture, Theme Editor schema, and exportable theme bundle.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

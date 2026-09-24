@@ -1,0 +1,108 @@
+{% comment %}
+  KINETIC Dedicated Full Cart Page Section
+{% endcomment %}
+
+<section class="py-12 lg:py-20 bg-white border-b border-neutral-200" data-section-id="{{ section.id }}">
+  <div class="page-container max-w-5xl">
+    <div class="border-b border-neutral-200 pb-6 mb-8 flex justify-between items-baseline">
+      <h1 class="text-3xl font-extrabold uppercase tracking-tight text-neutral-900">
+        {{ 'sections.cart.title' | t }}
+      </h1>
+      <a href="/collections/all" class="text-xs text-neutral-500 hover:text-neutral-900 underline uppercase tracking-wider">
+        {{ 'general.continue_shopping' | t }}
+      </a>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" id="cart" class="space-y-8">
+        <div class="border border-neutral-200 divide-y divide-neutral-200">
+          <!-- Table Header -->
+          <div class="hidden sm:grid grid-cols-12 gap-4 p-4 bg-neutral-50 text-xs font-bold uppercase tracking-wider text-neutral-600">
+            <div class="col-span-6">Product</div>
+            <div class="col-span-2 text-center">Quantity</div>
+            <div class="col-span-2 text-right">Price</div>
+            <div class="col-span-2 text-right">Total</div>
+          </div>
+
+          <!-- Items Rows -->
+          {%- for item in cart.items -%}
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 p-5 items-center bg-white">
+              <div class="col-span-6 flex items-center gap-4">
+                <div class="w-20 h-20 bg-neutral-100 shrink-0 border border-neutral-200 overflow-hidden">
+                  {%- if item.image -%}
+                    <img src="{{ item.image | image_url: width: 160 }}" alt="{{ item.title | escape }}" class="w-full h-full object-cover">
+                  {%- endif -%}
+                </div>
+                <div>
+                  <a href="{{ item.url }}" class="text-sm font-bold text-neutral-900 hover:underline uppercase tracking-tight block">
+                    {{ item.product.title }}
+                  </a>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <p class="text-xs text-neutral-500 mt-0.5">{{ item.variant.title }}</p>
+                  {%- endunless -%}
+                  <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity=0" class="text-xs text-neutral-400 hover:text-neutral-900 underline mt-2 inline-block">
+                    {{ 'sections.cart.remove' | t }}
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-span-2 flex justify-start sm:justify-center">
+                {% render 'quantity-selector', id: forloop.index, name: 'updates[]', value: item.quantity, min: 0 %}
+              </div>
+
+              <div class="col-span-2 text-left sm:text-right text-xs text-neutral-600 tabular-nums">
+                {{ item.price | money }}
+              </div>
+
+              <div class="col-span-2 text-left sm:text-right text-sm font-bold text-neutral-900 tabular-nums">
+                {{ item.final_line_price | money }}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-start gap-8 pt-6">
+          <div class="w-full sm:w-1/2 space-y-2">
+            <label for="CartNote" class="text-xs font-bold uppercase tracking-wider text-neutral-900 block">
+              {{ 'sections.cart.note' | t }}
+            </label>
+            <textarea
+              name="note"
+              id="CartNote"
+              rows="3"
+              class="w-full p-3 border border-neutral-200 text-xs text-neutral-900 focus:outline-none focus:border-neutral-900"
+              placeholder="Special delivery instructions or order notes..."
+            >{{ cart.note }}</textarea>
+          </div>
+
+          <div class="w-full sm:w-80 space-y-4">
+            <div class="flex justify-between items-baseline pb-2 border-b border-neutral-200">
+              <span class="text-sm font-bold uppercase tracking-wider text-neutral-900">{{ 'sections.cart.subtotal' | t }}</span>
+              <span class="text-xl font-extrabold text-neutral-900 tabular-nums">{{ cart.total_price | money }}</span>
+            </div>
+
+            <p class="text-xs text-neutral-500">
+              {{ 'sections.cart.taxes_and_shipping_policy_at_checkout_html' | t: link: routes.cart_url }}
+            </p>
+
+            <button type="submit" name="checkout" class="btn-primary w-full py-4 text-center">
+              {{ 'sections.cart.checkout' | t }}
+            </button>
+          </div>
+        </div>
+      </form>
+    {%- else -%}
+      <div class="py-24 text-center">
+        <p class="text-neutral-500 text-sm mb-6">{{ 'sections.cart.empty' | t }}</p>
+        <a href="/collections/all" class="btn-primary">Explore Gaming Hardware</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "settings": []
+}
+{% endschema %}

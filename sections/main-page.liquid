@@ -1,0 +1,24 @@
+{% comment %}
+  KINETIC Default Page Section
+{% endcomment %}
+
+<section class="py-12 lg:py-20 bg-white border-b border-neutral-200" data-section-id="{{ section.id }}">
+  <div class="page-container max-w-4xl">
+    {% render 'breadcrumbs' %}
+
+    <h1 class="text-3xl sm:text-4xl font-extrabold uppercase tracking-tight text-neutral-900 my-8">
+      {{ page.title }}
+    </h1>
+
+    <div class="prose max-w-none text-sm text-neutral-700 leading-relaxed space-y-4">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": []
+}
+{% endschema %}

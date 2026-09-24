@@ -1,0 +1,28 @@
+{% comment %}
+  Renders a styled action button or link
+  Accepts:
+  - text: {String} Button text
+  - url: {String} Target link URL (if present, renders <a>, otherwise <button>)
+  - type: {String} 'primary' | 'secondary' | 'dark' (default: 'primary')
+  - class: {String} Additional classes
+  - attr: {String} Raw HTML attributes
+{% endcomment %}
+
+{%- liquid
+  assign btn_class = 'btn-primary'
+  if type == 'secondary'
+    assign btn_class = 'btn-secondary'
+  elsif type == 'dark'
+    assign btn_class = 'btn-primary btn-dark'
+  endif
+-%}
+
+{%- if url != blank -%}
+  <a href="{{ url }}" class="{{ btn_class }} {{ class }}" {{ attr }}>
+    {{ text }}
+  </a>
+{%- else -%}
+  <button type="button" class="{{ btn_class }} {{ class }}" {{ attr }}>
+    {{ text }}
+  </button>
+{%- endif -%}

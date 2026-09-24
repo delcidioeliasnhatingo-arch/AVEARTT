@@ -1,0 +1,156 @@
+{% comment %}
+  KINETIC Minimalist Gaming Footer Section
+  Deep matte black #111111 background with clean typography and dynamic menus
+{% endcomment %}
+
+<footer class="bg-[#111111] text-white border-t border-neutral-800" data-section-id="{{ section.id }}">
+  <div class="page-container py-16 lg:py-20">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+      <!-- Brand & Mission Column -->
+      <div class="col-span-2">
+        <a href="{{ routes.root_url }}" class="text-xl font-extrabold uppercase tracking-tight text-white block mb-4">
+          {{ shop.name | default: 'KINETIC' }}
+        </a>
+        <p class="text-xs text-neutral-400 leading-relaxed max-w-sm mb-6">
+          Minimalist, tournament-grade gaming equipment engineered with mathematical precision, ultra-low latency, and timeless industrial aesthetics.
+        </p>
+
+        <!-- Social Media Links -->
+        <div class="flex items-center gap-3">
+          {%- if settings.social_discord != blank -%}
+            <a href="{{ settings.social_discord }}" target="_blank" rel="noopener" class="w-8 h-8 rounded border border-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors" aria-label="Discord">
+              <span class="text-xs font-mono font-bold">DC</span>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_twitch != blank -%}
+            <a href="{{ settings.social_twitch }}" target="_blank" rel="noopener" class="w-8 h-8 rounded border border-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors" aria-label="Twitch">
+              <span class="text-xs font-mono font-bold">TV</span>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_x != blank -%}
+            <a href="{{ settings.social_x }}" target="_blank" rel="noopener" class="w-8 h-8 rounded border border-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors" aria-label="X">
+              <span class="text-xs font-mono font-bold">X</span>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_youtube != blank -%}
+            <a href="{{ settings.social_youtube }}" target="_blank" rel="noopener" class="w-8 h-8 rounded border border-neutral-700 flex items-center justify-center text-neutral-400 hover:text-white hover:border-neutral-500 transition-colors" aria-label="YouTube">
+              <span class="text-xs font-mono font-bold">YT</span>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Dynamic Column 1: Shop Menu -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-200 mb-4">
+          {{ section.settings.menu_1_title | default: 'Shop' }}
+        </h4>
+        <ul class="space-y-2.5 text-xs text-neutral-400">
+          {%- for link in linklists[section.settings.menu_1].links -%}
+            <li>
+              <a href="{{ link.url }}" class="hover:text-white transition-colors">{{ link.title }}</a>
+            </li>
+          {%- else -%}
+            <li><a href="/collections/gaming-pcs" class="hover:text-white transition-colors">Gaming PCs</a></li>
+            <li><a href="/collections/monitors" class="hover:text-white transition-colors">Displays & Monitors</a></li>
+            <li><a href="/collections/keyboards" class="hover:text-white transition-colors">Mechanical Keyboards</a></li>
+            <li><a href="/collections/mice" class="hover:text-white transition-colors">Wireless Mice</a></li>
+            <li><a href="/collections/accessories" class="hover:text-white transition-colors">Desk Mats & Arms</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <!-- Dynamic Column 2: Support Menu -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-200 mb-4">
+          {{ section.settings.menu_2_title | default: 'Support' }}
+        </h4>
+        <ul class="space-y-2.5 text-xs text-neutral-400">
+          {%- for link in linklists[section.settings.menu_2].links -%}
+            <li>
+              <a href="{{ link.url }}" class="hover:text-white transition-colors">{{ link.title }}</a>
+            </li>
+          {%- else -%}
+            <li><a href="/pages/contact" class="hover:text-white transition-colors">Customer Service</a></li>
+            <li><a href="/pages/warranty" class="hover:text-white transition-colors">2-Year Warranty</a></li>
+            <li><a href="/pages/shipping" class="hover:text-white transition-colors">Shipping & Returns</a></li>
+            <li><a href="/pages/drivers" class="hover:text-white transition-colors">Firmware & Drivers</a></li>
+            <li><a href="/pages/faq" class="hover:text-white transition-colors">FAQ</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <!-- Dynamic Column 3: About / Information -->
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-neutral-200 mb-4">
+          {{ section.settings.menu_3_title | default: 'Information' }}
+        </h4>
+        <ul class="space-y-2.5 text-xs text-neutral-400">
+          {%- for link in linklists[section.settings.menu_3].links -%}
+            <li>
+              <a href="{{ link.url }}" class="hover:text-white transition-colors">{{ link.title }}</a>
+            </li>
+          {%- else -%}
+            <li><a href="/pages/about" class="hover:text-white transition-colors">Our Philosophy</a></li>
+            <li><a href="/pages/esports-partners" class="hover:text-white transition-colors">Esports Roster</a></li>
+            <li><a href="/policies/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a></li>
+            <li><a href="/policies/terms-of-service" class="hover:text-white transition-colors">Terms of Service</a></li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-16 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-neutral-500 gap-4">
+      <p>
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name | default: 'KINETIC' }}. {{ 'sections.footer.all_rights_reserved' | t }} Powered by Shopify.
+      </p>
+
+      <div class="flex items-center gap-2">
+        <span class="text-neutral-400 font-mono">EN · USD ($)</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "menu_1_title",
+      "label": "Column 1 Title",
+      "default": "Shop"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Column 1 Menu",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_title",
+      "label": "Column 2 Title",
+      "default": "Support"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Column 2 Menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_3_title",
+      "label": "Column 3 Title",
+      "default": "Information"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_3",
+      "label": "Column 3 Menu"
+    }
+  ]
+}
+{% endschema %}

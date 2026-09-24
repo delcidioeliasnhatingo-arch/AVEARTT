@@ -1,0 +1,26 @@
+{% comment %}
+  Renders quantity selector stepper input
+  Accepts:
+  - id: {String} Input element ID
+  - name: {String} Input name (default: 'quantity')
+  - value: {Number} Default quantity value (default: 1)
+  - min: {Number} Minimum value (default: 1)
+{% endcomment %}
+
+<div class="qty-stepper" data-quantity-wrapper>
+  <button type="button" aria-label="Decrease quantity" onclick="this.parentNode.querySelector('input').stepDown(); this.parentNode.querySelector('input').dispatchEvent(new Event('change'))">
+    &minus;
+  </button>
+  <input
+    type="number"
+    id="{{ id | default: 'Quantity' }}"
+    name="{{ name | default: 'quantity' }}"
+    value="{{ value | default: 1 }}"
+    min="{{ min | default: 1 }}"
+    step="1"
+    class="text-sm font-semibold text-center"
+  >
+  <button type="button" aria-label="Increase quantity" onclick="this.parentNode.querySelector('input').stepUp(); this.parentNode.querySelector('input').dispatchEvent(new Event('change'))">
+    &plus;
+  </button>
+</div>

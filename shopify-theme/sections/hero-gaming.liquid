@@ -1,0 +1,144 @@
+{% comment %}
+  KINETIC Minimalist Gaming Hero Section
+  Two-column split layout with strong typography and high-key product showcase
+{% endcomment %}
+
+<section class="relative bg-white border-b border-neutral-200 overflow-hidden" data-section-id="{{ section.id }}">
+  <div class="page-container py-12 lg:py-20">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <!-- Left Column: Content -->
+      <div class="lg:col-span-6 flex flex-col justify-center space-y-6">
+        {%- if section.settings.eyebrow != blank -%}
+          <div class="eyebrow-text flex items-center gap-2">
+            <span class="w-2 h-2 bg-neutral-900 inline-block"></span>
+            <span>{{ section.settings.eyebrow }}</span>
+          </div>
+        {%- endif -%}
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 leading-[1.08] uppercase">
+          {{ section.settings.heading | default: 'BUILT FOR YOUR NEXT LEVEL' }}
+        </h1>
+
+        <p class="text-base lg:text-lg text-neutral-600 max-w-xl font-normal leading-relaxed">
+          {{ section.settings.description | default: 'Gaming gear designed for performance, precision and an exceptional gaming experience.' }}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4 pt-4">
+          {%- if section.settings.primary_button_label != blank -%}
+            <a href="{{ section.settings.primary_button_link | default: '/collections/all' }}" class="btn-primary">
+              {{ section.settings.primary_button_label }}
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.secondary_button_label != blank -%}
+            <a href="{{ section.settings.secondary_button_link | default: '/collections' }}" class="btn-secondary">
+              {{ section.settings.secondary_button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+
+        <!-- Trust proof indicators -->
+        <div class="pt-8 border-t border-neutral-100 grid grid-cols-3 gap-4 text-xs text-neutral-600">
+          <div>
+            <p class="font-bold text-neutral-900 tabular-nums">0.5ms</p>
+            <p class="text-[11px] text-neutral-500">Input Latency</p>
+          </div>
+          <div>
+            <p class="font-bold text-neutral-900 tabular-nums">8000Hz</p>
+            <p class="text-[11px] text-neutral-500">Polling Rate</p>
+          </div>
+          <div>
+            <p class="font-bold text-neutral-900">2-Year</p>
+            <p class="text-[11px] text-neutral-500">Full Warranty</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Hero Visual Asset -->
+      <div class="lg:col-span-6">
+        <div class="relative w-full aspect-[16/10] lg:aspect-[4/3] bg-neutral-100 border border-neutral-200 overflow-hidden shadow-sm">
+          {%- if section.settings.image != blank -%}
+            <img
+              src="{{ section.settings.image | image_url: width: 1400 }}"
+              alt="{{ section.settings.heading | escape }}"
+              class="w-full h-full object-cover"
+              loading="eager"
+              width="1400"
+              height="1050"
+            >
+          {%- else -%}
+            <!-- Fallback styled asset container -->
+            <img
+              src="{{ 'hero_gaming_setup.jpg' | asset_url }}"
+              alt="Minimalist gaming setup"
+              class="w-full h-full object-cover"
+              loading="eager"
+              width="1400"
+              height="1050"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Gaming",
+  "tag": "section",
+  "class": "section-hero-gaming",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Kicker",
+      "default": "GAMING PERFORMANCE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BUILT FOR YOUR NEXT LEVEL"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Gaming gear designed for performance, precision and an exceptional gaming experience."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "text",
+      "id": "primary_button_label",
+      "label": "Primary Button Label",
+      "default": "SHOP GAMING GEAR"
+    },
+    {
+      "type": "url",
+      "id": "primary_button_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary Button Label",
+      "default": "EXPLORE COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Gaming"
+    }
+  ]
+}
+{% endschema %}

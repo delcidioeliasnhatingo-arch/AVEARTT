@@ -1,0 +1,36 @@
+{% comment %}
+  Renders breadcrumbs navigation with microdata for SEO
+{% endcomment %}
+
+{%- unless template == 'index' or template == 'cart' or template == '404' -%}
+<nav class="breadcrumbs py-3 text-xs text-neutral-500 font-medium" aria-label="Breadcrumb">
+  <ol class="flex items-center gap-1.5 flex-wrap">
+    <li>
+      <a href="{{ routes.root_url }}" class="hover:text-neutral-900 transition-colors">Home</a>
+    </li>
+
+    {%- if template contains 'collection' and collection.title -%}
+      <li aria-hidden="true" class="text-neutral-300">/</li>
+      <li>
+        <span class="text-neutral-900" aria-current="page">{{ collection.title }}</span>
+      </li>
+    {%- elsif template contains 'product' -%}
+      {%- if collection.url -%}
+        <li aria-hidden="true" class="text-neutral-300">/</li>
+        <li>
+          <a href="{{ collection.url }}" class="hover:text-neutral-900 transition-colors">{{ collection.title }}</a>
+        </li>
+      {%- endif -%}
+      <li aria-hidden="true" class="text-neutral-300">/</li>
+      <li>
+        <span class="text-neutral-900 truncate max-w-xs inline-block align-bottom" aria-current="page">{{ product.title }}</span>
+      </li>
+    {%- elsif template contains 'page' -%}
+      <li aria-hidden="true" class="text-neutral-300">/</li>
+      <li>
+        <span class="text-neutral-900" aria-current="page">{{ page.title }}</span>
+      </li>
+    {%- endif -%}
+  </ol>
+</nav>
+{%- endunless -%}

@@ -1,0 +1,112 @@
+{% comment %}
+  KINETIC Minimalist Setup Banner Section
+  50/50 split with high-contrast matte dark panel
+{% endcomment %}
+
+<section class="border-b border-neutral-200 overflow-hidden" data-section-id="{{ section.id }}">
+  <div class="grid grid-cols-1 lg:grid-cols-2">
+    <!-- Left: Image Asset -->
+    <div class="relative min-h-[360px] lg:min-h-[520px] bg-neutral-100 overflow-hidden">
+      {%- if section.settings.image != blank -%}
+        <img
+          src="{{ section.settings.image | image_url: width: 1200 }}"
+          alt="{{ section.settings.heading | escape }}"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          width="1200"
+          height="800"
+        >
+      {%- else -%}
+        <img
+          src="{{ 'setup_banner_room.jpg' | asset_url }}"
+          alt="Minimalist gaming setup workstation"
+          class="w-full h-full object-cover"
+          loading="lazy"
+          width="1200"
+          height="800"
+        >
+      {%- endif -%}
+    </div>
+
+    <!-- Right: High-contrast Dark Section -->
+    <div class="bg-[#111111] text-white p-8 sm:p-12 lg:p-20 flex flex-col justify-center space-y-6">
+      <p class="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">
+        {{ section.settings.eyebrow | default: 'CURATED ECOSYSTEM' }}
+      </p>
+
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-white leading-tight">
+        {{ section.settings.heading | default: 'BUILD YOUR SETUP' }}
+      </h2>
+
+      <p class="text-sm sm:text-base text-neutral-400 font-normal leading-relaxed max-w-lg">
+        {{ section.settings.description | default: 'Everything you need to create a clean, powerful and immersive gaming setup.' }}
+      </p>
+
+      <div class="pt-4">
+        <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="btn-primary btn-dark">
+          {{ section.settings.button_label | default: 'EXPLORE SETUPS' }}
+        </a>
+      </div>
+
+      <div class="pt-8 border-t border-neutral-800 grid grid-cols-2 gap-6 text-xs text-neutral-400">
+        <div>
+          <span class="block text-white font-bold text-sm mb-1 uppercase tracking-wider">Modular Compatibility</span>
+          Standardized mounting, USB-C unified hubs, and zero cable clutter.
+        </div>
+        <div>
+          <span class="block text-white font-bold text-sm mb-1 uppercase tracking-wider">Acoustic Tuning</span>
+          Dampened mechanical switches and whisper-quiet custom PC thermals.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Setup Banner",
+  "tag": "section",
+  "class": "section-setup-banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "CURATED ECOSYSTEM"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BUILD YOUR SETUP"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Everything you need to create a clean, powerful and immersive gaming setup."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Workstation Image"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "EXPLORE SETUPS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Setup Banner"
+    }
+  ]
+}
+{% endschema %}

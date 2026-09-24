@@ -1,0 +1,126 @@
+{% comment %}
+  KINETIC Performance Features Section
+  Clean minimal blocks on secondary background #F6F6F6 with crisp typography
+{% endcomment %}
+
+<section class="py-16 lg:py-24 bg-[#F6F6F6] border-b border-neutral-200" data-section-id="{{ section.id }}">
+  <div class="page-container">
+    <div class="max-w-2xl mb-12">
+      <p class="eyebrow-text mb-1">ENGINEERING STANDARDS</p>
+      <h2 class="text-2xl lg:text-3xl font-bold uppercase tracking-tight text-neutral-900">
+        {{ section.settings.heading | default: 'PERFORMANCE WITHOUT COMPROMISE' }}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {%- for block in section.blocks -%}
+        <div class="bg-white border border-neutral-200 p-8 flex flex-col justify-between" {{ block.shopify_attributes }}>
+          <div>
+            <div class="text-neutral-400 font-mono text-xs mb-6 tabular-nums font-semibold">
+              0{{ forloop.index }}
+            </div>
+            <h3 class="text-base font-bold uppercase tracking-tight text-neutral-900 mb-3">
+              {{ block.settings.title }}
+            </h3>
+            <p class="text-xs text-neutral-600 leading-relaxed">
+              {{ block.settings.description }}
+            </p>
+          </div>
+        </div>
+      {%- else -%}
+        <!-- Default blocks when none configured -->
+        <div class="bg-white border border-neutral-200 p-8">
+          <div class="text-neutral-400 font-mono text-xs mb-6 font-semibold">01</div>
+          <h3 class="text-base font-bold uppercase tracking-tight text-neutral-900 mb-3">PRECISION</h3>
+          <p class="text-xs text-neutral-600 leading-relaxed">Equipment designed for accurate and responsive control.</p>
+        </div>
+        <div class="bg-white border border-neutral-200 p-8">
+          <div class="text-neutral-400 font-mono text-xs mb-6 font-semibold">02</div>
+          <h3 class="text-base font-bold uppercase tracking-tight text-neutral-900 mb-3">PERFORMANCE</h3>
+          <p class="text-xs text-neutral-600 leading-relaxed">Hardware built for demanding gaming experiences.</p>
+        </div>
+        <div class="bg-white border border-neutral-200 p-8">
+          <div class="text-neutral-400 font-mono text-xs mb-6 font-semibold">03</div>
+          <h3 class="text-base font-bold uppercase tracking-tight text-neutral-900 mb-3">COMFORT</h3>
+          <p class="text-xs text-neutral-600 leading-relaxed">Designed for long gaming sessions.</p>
+        </div>
+        <div class="bg-white border border-neutral-200 p-8">
+          <div class="text-neutral-400 font-mono text-xs mb-6 font-semibold">04</div>
+          <h3 class="text-base font-bold uppercase tracking-tight text-neutral-900 mb-3">QUALITY</h3>
+          <p class="text-xs text-neutral-600 leading-relaxed">Carefully selected gaming equipment.</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Performance Features",
+  "tag": "section",
+  "class": "section-performance-features",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "PERFORMANCE WITHOUT COMPROMISE"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature Title",
+          "default": "PRECISION"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Feature Description",
+          "default": "Equipment designed for accurate and responsive control."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Performance Features",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "PRECISION",
+            "description": "Equipment designed for accurate and responsive control."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "PERFORMANCE",
+            "description": "Hardware built for demanding gaming experiences."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "COMFORT",
+            "description": "Designed for long gaming sessions."
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "QUALITY",
+            "description": "Carefully selected gaming equipment."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

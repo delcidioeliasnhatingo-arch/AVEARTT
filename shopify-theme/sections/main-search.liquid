@@ -1,0 +1,73 @@
+{% comment %}
+  KINETIC Minimalist Search Results Section
+{% endcomment %}
+
+{%- paginate search.results by 16 -%}
+<section class="py-12 lg:py-20 bg-white border-b border-neutral-200" data-section-id="{{ section.id }}">
+  <div class="page-container">
+    <div class="max-w-2xl mx-auto text-center mb-12">
+      <p class="eyebrow-text mb-1">SEARCH</p>
+      <h1 class="text-3xl font-extrabold uppercase tracking-tight text-neutral-900 mb-6">
+        {%- if search.performed -%}
+          Search results for "{{ search.terms }}"
+        {%- else -%}
+          Search Gaming Hardware
+        {%- endif -%}
+      </h1>
+
+      <!-- Search Input Form -->
+      <form action="{{ routes.search_url }}" method="get" role="search" class="flex gap-2">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="Search gaming PCs, keyboards, monitors..."
+          class="flex-1 px-4 py-3 border border-neutral-300 text-xs focus:outline-none focus:border-neutral-900"
+        >
+        <input type="hidden" name="type" value="product,collection,article">
+        <button type="submit" class="btn-primary">Search</button>
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item, show_vendor: true, show_rating: true, show_quick_add: true %}
+            {%- else -%}
+              <div class="product-card p-6 flex flex-col justify-between">
+                <div>
+                  <span class="text-[11px] font-mono uppercase text-neutral-400">{{ item.object_type }}</span>
+                  <h3 class="text-base font-bold text-neutral-900 mt-2">
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                  </h3>
+                  <p class="text-xs text-neutral-600 line-clamp-3 mt-2">{{ item.content | strip_html | truncate: 120 }}</p>
+                </div>
+                <a href="{{ item.url }}" class="text-xs font-bold uppercase text-neutral-900 mt-4 inline-block">View &rarr;</a>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="mt-12 text-center text-xs">
+            Page {{ paginate.current_page }} of {{ paginate.pages }}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div class="py-16 text-center text-neutral-500 text-sm">
+          No hardware found matching "{{ search.terms }}". Try broader keywords like "monitor", "pc", or "mouse".
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Search Results",
+  "settings": []
+}
+{% endschema %}

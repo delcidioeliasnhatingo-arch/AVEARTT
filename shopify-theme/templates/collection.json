@@ -1,0 +1,23 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 16,
+        "show_vendor": true,
+        "show_rating": true,
+        "show_quick_add": true
+      }
+    },
+    "features": {
+      "type": "performance-features",
+      "settings": {
+        "heading": "ESPORTS ACCREDITATION"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "features"
+  ]
+}

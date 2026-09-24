@@ -1,0 +1,253 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "KINETIC Minimalist Gaming",
+    "theme_version": "2.4.0",
+    "theme_author": "KINETIC Design Systems",
+    "theme_documentation_url": "https://kinetic-theme.com/docs",
+    "theme_support_url": "https://kinetic-theme.com/support"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Minimalist Monochrome Palette"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_bg",
+        "label": "Primary Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary_bg",
+        "label": "Secondary Background (Light Gray)",
+        "default": "#F6F6F6"
+      },
+      {
+        "type": "color",
+        "id": "color_primary_text",
+        "label": "Primary Text",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary_text",
+        "label": "Secondary Text (Muted)",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_section_bg",
+        "label": "Dark Section Background",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_section_text",
+        "label": "Dark Section Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_borders",
+        "label": "Border & Divider Lines",
+        "default": "#E5E5E5"
+      },
+      {
+        "type": "color",
+        "id": "color_button_bg",
+        "label": "Button Background",
+        "default": "#111111"
+      },
+      {
+        "type": "color",
+        "id": "color_button_text",
+        "label": "Button Text Color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_hover_bg",
+        "label": "Hover Background",
+        "default": "#F0F0F0"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Typeface Selection"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body Font",
+        "default": "sans-serif"
+      },
+      {
+        "type": "range",
+        "id": "font_heading_scale",
+        "min": 90,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "Heading Scale",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "font_body_scale",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "unit": "%",
+        "label": "Body Font Scale",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Layout & Grid",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "label": "Maximum Page Width",
+        "default": 1440
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections",
+        "min": 32,
+        "max": 120,
+        "step": 8,
+        "unit": "px",
+        "label": "Section Vertical Spacing",
+        "default": 80
+      },
+      {
+        "type": "range",
+        "id": "card_corner_radius",
+        "min": 0,
+        "max": 12,
+        "step": 2,
+        "unit": "px",
+        "label": "Subtle Card Corner Radius",
+        "default": 2
+      }
+    ]
+  },
+  {
+    "name": "Cart Drawer & AJAX",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart Experience",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Slide-out AJAX Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Dedicated Cart Page"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_notes",
+        "label": "Enable Order Special Instructions / Notes",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping_bar",
+        "label": "Enable Free Shipping Progress Bar",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free Shipping Threshold (in store currency)",
+        "default": 150
+      }
+    ]
+  },
+  {
+    "name": "Product Cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_secondary_image_on_hover",
+        "label": "Show Secondary Image on Hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show Product Vendor",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_ratings",
+        "label": "Show Star Ratings",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quick_add",
+        "label": "Enable Quick Add to Cart",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_discord",
+        "label": "Discord Community URL"
+      },
+      {
+        "type": "text",
+        "id": "social_twitch",
+        "label": "Twitch Channel URL"
+      },
+      {
+        "type": "text",
+        "id": "social_x",
+        "label": "X / Twitter URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      }
+    ]
+  }
+]

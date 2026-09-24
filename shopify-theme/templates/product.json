@@ -1,0 +1,28 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_dynamic_checkout": true,
+        "enable_image_zoom": true
+      }
+    },
+    "performance": {
+      "type": "performance-features",
+      "settings": {
+        "heading": "RIGOROUS LAB VERIFICATION"
+      }
+    },
+    "recommendations": {
+      "type": "best-sellers",
+      "settings": {
+        "heading": "COMPLETE YOUR RIG"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "performance",
+    "recommendations"
+  ]
+}
